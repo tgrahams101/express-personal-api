@@ -21,6 +21,8 @@ app.use(function(req, res, next) {
 
 // var db = require('./models');
 
+var books = {name: 1984, year: 1958, author: "George Orwell"};
+
 /**********
  * ROUTES *
  **********/
@@ -37,6 +39,9 @@ app.get('/', function homepage(req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/books', function (req, res){
+    res.json(books);
+});
 
 /*
  * JSON API Endpoints
