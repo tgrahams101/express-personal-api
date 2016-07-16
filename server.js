@@ -1,6 +1,7 @@
 // require express and other modules
 var express = require('express'),
-    app = express();
+    app = express(),
+    db = require('./models/index.js');
 
 // parse incoming urlencoded form data
 // and populate the req.body object
@@ -23,6 +24,15 @@ app.use(function(req, res, next) {
 
 var books = {name: 1984, year: 1958, author: "George Orwell"};
 
+var profile = {
+  name: "Ted Anyansi",
+  hometown: "Union, NJ",
+  curentresidence: "San Francisco, CA",
+
+
+
+};
+
 /**********
  * ROUTES *
  **********/
@@ -43,6 +53,22 @@ app.get('/books', function (req, res){
     res.json(books);
 });
 
+app.get ('/profile', function (req, res){
+    res.json(profile);
+});
+
+app.post ('/pics', function (req, res) {
+    var newPicture = new db.Picture({
+          url: req.body.url
+        });
+      newPicture.save(function (err, success){
+         if (err){
+           res.sendStatus(500);
+         }
+        res.json(success);
+      });
+});
+
 /*
  * JSON API Endpoints
  */
@@ -59,7 +85,7 @@ app.get('/api', function api_index(req, res) {
       {method: "GET", path: "/api/profile", description: "Data about me"}, // CHANGE ME
       {method: "POST", path: "/api/campsites", description: "E.g. Create a new campsite"} // CHANGE ME
     ]
-  })
+  });
 });
 
 /**********
