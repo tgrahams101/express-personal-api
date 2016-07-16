@@ -1,5 +1,5 @@
-var express = require(express);
-var Schema =  mongoose.Shema;
+var mongoose = require('mongoose');
+var Schema =  mongoose.Schema;
 
 var PictureShema = new Schema ({
       url: String
